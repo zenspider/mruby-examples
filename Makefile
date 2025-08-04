@@ -5,6 +5,9 @@
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
+%.c: %.rb
+	$(MRBC) -B $(shell basename $< .rb) -o $@ $< 
+
 .PHONY: clean hello_world hello_bytecode hello_c_code hello_classes hello_embedded
 
 01_DIR=01_hello_world
@@ -52,9 +55,6 @@ hello_bytecode: $(BUILD_DIR)/hello_bytecode.mrb
 
 ### 03 hello c code
 
-$(03_DIR)/hello_c_code_ruby.c: $(03_DIR)/hello_c_code_ruby.rb
-	$(MRBC) -B hello_c_code_ruby $(03_DIR)/hello_c_code_ruby.rb
-
 $(03_DIR)/hello_c_code.o: $(03_DIR)/hello_c_code_ruby.c
 
 $(BUILD_DIR)/hello_c_code: $(03_DIR)/hello_c_code.o
@@ -65,9 +65,6 @@ hello_c_code: $(BUILD_DIR)/hello_c_code
 
 ### 04 hello classes
 
-$(04_DIR)/fish_program.c: $(04_DIR)/fish_program.rb
-	$(MRBC) -B fish_program $(04_DIR)/fish_program.rb
-
 $(04_DIR)/hello_classes.o: $(04_DIR)/fish_program.c
 
 $(BUILD_DIR)/hello_classes: $(04_DIR)/hello_classes.o
@@ -77,9 +74,6 @@ hello_classes: $(BUILD_DIR)/hello_classes
 	@$(BUILD_DIR)/hello_classes
 
 ### 05 hello embedded
-
-$(05_DIR)/hello_embedded_ruby.c: $(05_DIR)/hello_embedded_ruby.rb
-	$(MRBC) -B hello_embedded_ruby $(05_DIR)/hello_embedded_ruby.rb
 
 # fake_led.c isn't actually compiled, just #included
 $(05_DIR)/hello_embedded.o: $(05_DIR)/hello_embedded_ruby.c $(05_DIR)/fake_led.c 
