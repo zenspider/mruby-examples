@@ -25,28 +25,28 @@ clean:
 		$(04_DIR)/fish_program.c \
 		$(05_DIR)/hello_embedded_ruby.c
 
-hello_world: clean $(01_DIR)/hello_world.c
+hello_world: $(01_DIR)/hello_world.c
 	$(CC) -c $(01_DIR)/hello_world.c -o $(01_DIR)/hello_world.o $(CFLAGS)
 	$(LD) -o $(BUILD_DIR)/hello_world $(01_DIR)/hello_world.o $(LDFLAGS1) $(LIBS) $(LDFLAGS2)
 	$(BUILD_DIR)/hello_world
 
-hello_bytecode: clean $(02_DIR)/hello_bytecode.rb
+hello_bytecode: $(02_DIR)/hello_bytecode.rb
 	$(MRBC)  -o $(BUILD_DIR)/hello_bytecode.mrb $(02_DIR)/hello_bytecode.rb
 	$(MRUBY) -b $(BUILD_DIR)/hello_bytecode.mrb
 
-hello_c_code: clean $(03_DIR)/hello_c_code.c $(03_DIR)/hello_c_code_ruby.rb
+hello_c_code: $(03_DIR)/hello_c_code.c $(03_DIR)/hello_c_code_ruby.rb
 	$(MRBC) -B hello_c_code_ruby $(03_DIR)/hello_c_code_ruby.rb
 	$(CC) -c $(03_DIR)/hello_c_code.c -o $(03_DIR)/hello_c_code.o $(CFLAGS)
 	$(LD) -o $(BUILD_DIR)/hello_c_code $(03_DIR)/hello_c_code.o $(LDFLAGS1) $(LIBS) $(LDFLAGS2)
 	$(BUILD_DIR)/hello_c_code
 
-hello_classes: clean $(04_DIR)/hello_classes.c $(04_DIR)/fish_program.rb
+hello_classes: $(04_DIR)/hello_classes.c $(04_DIR)/fish_program.rb
 	$(MRBC) -B fish_program $(04_DIR)/fish_program.rb
 	$(CC) -c $(04_DIR)/hello_classes.c -o $(04_DIR)/hello_classes.o $(CFLAGS)
 	$(LD) -o $(BUILD_DIR)/hello_classes $(04_DIR)/hello_classes.o $(LDFLAGS1) $(LIBS) $(LDFLAGS2)
 	$(BUILD_DIR)/hello_classes
 
-hello_embedded: clean $(05_DIR)/fake_led.c $(05_DIR)/hello_embedded_ruby.rb $(05_DIR)/hello_embedded.c
+hello_embedded: $(05_DIR)/fake_led.c $(05_DIR)/hello_embedded_ruby.rb $(05_DIR)/hello_embedded.c
 	$(MRBC) -B hello_embedded_ruby $(05_DIR)/hello_embedded_ruby.rb
 	$(CC) -c $(05_DIR)/hello_embedded.c -o $(05_DIR)/hello_embedded.o $(CFLAGS)
 	$(LD) -o $(BUILD_DIR)/hello_embedded $(05_DIR)/hello_embedded.o $(LDFLAGS1) $(LIBS) $(LDFLAGS2)
