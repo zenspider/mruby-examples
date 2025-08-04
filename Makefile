@@ -77,9 +77,7 @@ hello_classes: $(BUILD_DIR)/hello_classes
 ### 05 hello embedded
 
 # fake_led.c isn't actually compiled, just #included
-$(05_DIR)/hello_embedded.o: $(05_DIR)/hello_embedded_ruby.c $(05_DIR)/fake_led.c 
-
-$(BUILD_DIR)/hello_embedded: $(05_DIR)/hello_embedded_ruby.c $(05_DIR)/hello_embedded.o
+$(BUILD_DIR)/hello_embedded: $(05_DIR)/hello_embedded_ruby.c $(05_DIR)/fake_led.c $(05_DIR)/hello_embedded.o
 	$(LD) -o $(BUILD_DIR)/hello_embedded $(05_DIR)/hello_embedded.o $(LDFLAGS1) $(LIBS) $(LDFLAGS2)
 
 hello_embedded: $(BUILD_DIR)/hello_embedded
