@@ -7,10 +7,9 @@ int main(void)
   mrb_state *mrb = mrb_open();
 
   /* write some code */
-  char code[] = "p 'Hello world!'";
+  char code[] = "puts 'Hello world!'";
 
   /* use it to execute code from string */
   mrb_load_string(mrb, code);
   return 0;
 }
-
