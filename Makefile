@@ -1,3 +1,7 @@
+.PHONY: Makefile
+
+.PHONY: clean hello_world hello_bytecode hello_c_code hello_classes hello_embedded
+
 01_DIR=01_hello_world
 02_DIR=02_hello_bytecode
 03_DIR=03_hello_c_code
