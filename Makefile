@@ -1,4 +1,9 @@
+.SUFFIXES:
+.SUFFIXES: .c .o .rb
 .PHONY: Makefile
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
 
 .PHONY: clean hello_world hello_bytecode hello_c_code hello_classes hello_embedded
 
