@@ -1,9 +1,12 @@
 .SUFFIXES:
-.SUFFIXES: .c .o .rb
+.SUFFIXES: .c .o .rb .mrb
 .PHONY: Makefile
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
+
+%.mrb: %.rb
+	$(MRBC) -o $@ $<
 
 %.c: %.rb
 	$(MRBC) -B $(shell basename $< .rb) -o $@ $< 
@@ -33,6 +36,7 @@ clean:
 	mkdir -p build
 	rm -fr build/* \
 		*/*.o \
+		$(02_DIR)/hello_bytecode.mrb \
 		$(03_DIR)/hello_c_code_ruby.c \
 		$(04_DIR)/fish_program.c \
 		$(05_DIR)/hello_embedded_ruby.c
@@ -47,11 +51,8 @@ hello_world: $(BUILD_DIR)/hello_world
 
 ### 02 hello bytecode
 
-$(BUILD_DIR)/hello_bytecode.mrb: $(02_DIR)/hello_bytecode.rb
-	$(MRBC) -o $(BUILD_DIR)/hello_bytecode.mrb $(02_DIR)/hello_bytecode.rb
-
-hello_bytecode: $(BUILD_DIR)/hello_bytecode.mrb
-	@$(MRUBY) -b $(BUILD_DIR)/hello_bytecode.mrb
+hello_bytecode: $(02_DIR)/hello_bytecode.mrb
+	@$(MRUBY) -b $(02_DIR)/hello_bytecode.mrb
 
 ### 03 hello c code
 

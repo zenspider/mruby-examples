@@ -1,4 +1,5 @@
 build/*
+/02_hello_bytecode/hello_bytecode.mrb
 /03_hello_c_code/hello_c_code_ruby.c
 /04_hello_classes/fish_program.c
 /05_hello_embedded/hello_embedded_ruby.c
