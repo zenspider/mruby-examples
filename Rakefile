@@ -2,7 +2,7 @@ import "mruby.rake"
 
 task default: "hello_world"
 
-task all: %w[ hello_world hello_bytecode hello_c_code hello_classes hello_embedded ]
+task all: %w[ hello_world hello_bytecode hello_c_code hello_classes hello_embedded  hello_mruby ]
 
 task :clean do
   rm_rf Dir["build/*",
@@ -66,4 +66,17 @@ end
 
 task hello_embedded: %w[ build build/hello_embedded ] do
   sh "./build/hello_embedded"
+end
+
+### 06 hello mruby
+
+# TODO: why do I need to draw this dependency? should be wired up??
+file "06_hello_mruby/hello_mruby.o" => "06_hello_mruby/hello_mruby.c"
+
+file "build/hello_mruby": "06_hello_mruby/hello_mruby.o" do |t|
+  link t.name, *t.sources
+end
+
+task hello_mruby: %w[ build build/hello_mruby ] do
+  sh "./build/hello_mruby 06_hello_mruby/main.rb"
 end
