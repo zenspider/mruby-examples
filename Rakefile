@@ -80,3 +80,7 @@ end
 task hello_mruby: %w[ build build/hello_mruby ] do
   sh "./build/hello_mruby 06_hello_mruby/main.rb"
 end
+
+task hello_bin: %w[ build ] do
+  abort "not yet"
+end
